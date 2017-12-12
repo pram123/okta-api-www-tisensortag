@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 public class AuthorityService {
 
 
-    @PreAuthorize("hasRole('EmployeeAdmin')")
-    public boolean isEmployeeAdmin() {return true;}
+    @PreAuthorize("hasRole('iotAdmin')")
+    public boolean isIoTAdmin() {return true;}
+
+    @PreAuthorize("hasRole('iotUser')")
+    public boolean isIoTUser() {return true;}
 
 
 }

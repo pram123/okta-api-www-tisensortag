@@ -11,10 +11,11 @@
 
 </head>
 <body>
+Please login to continue
 <div id="okta-login-container"></div>
 <script type="text/javascript">
     var orgUrl       = 'https://prdemo.oktapreview.com';            // TODO - Change this for usage with your org
-    var authServer   = '/oauth2/ausca4x6gjdoZn9u60h7';              // TODO - Change this to your authorization server
+    var authServerURL   =  '/oauth2/ausca4x6gjdoZn9u60h7';          // TODO - Change this to your authorization server URL
     var redirect = 'http://localhost:8080/dashboard.html';          // TODO - Change this to where the access token should be sent
     var oktaSignIn = new OktaSignIn({
         baseUrl: orgUrl,
@@ -24,9 +25,9 @@
 
         authScheme: "OAUTH2",                                       // specify that we're using OAuth 2.0
         authParams: {
-            issuer: orgUrl + authServer,                            // create the issuer url
-            authorizeUrl: orgUrl + authServer + "/v1/authorize",    // create the authorize url
-            responseType: 'id_token',
+            issuer: orgUrl + authServerURL,                            // create the issuer url
+            authorizeUrl: orgUrl + authServerURL + "/v1/authorize",    // create the authorize url
+            responseType: 'token',
             responseMode: 'okta_post_message',
             scopes: [                                               // TODO - Change these depending on your authorization server config
                 'openid',
@@ -43,14 +44,17 @@
 
                 var authClient = new OktaAuth({url: orgUrl});
                   console.log("res", res);
-                var decoded = jwt_decode(res.idToken)
+                var decoded = jwt_decode(res.accessToken);
+               // var decoded = jwt_decode(res.idToken)
                 localStorage.setItem("decodedIDToken",JSON.stringify(decoded));
                 //console.log("idToken = ", decoded);
-                localStorage.setItem("userID", decoded.sub);
-               // console.log("userID:", decoded.sub);
-                localStorage.setItem("idToken", res.idToken);
-              //  localStorage.setItem("accessToken", res.accessToken);
-               location.href = redirect;
+                localStorage.setItem("userID", decoded.uid);
+                console.log("userID:", decoded.uid);
+               // localStorage.setItem("idToken", res.idToken);
+               localStorage.setItem("access_token", res.accessToken);
+                document.cookie =   "access_token=" + res.accessToken + "; path=/";
+
+                location.href = redirect;
             }
         }
     );

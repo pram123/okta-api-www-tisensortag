@@ -63,6 +63,7 @@ function initMetrics(){
     idToken = JSON.parse(localStorage.getItem("decodedIDToken"))
     console.log("DeviceID = ", idToken);
     $('#deviceID').html(idToken.deviceID);
+    localStorage.setItem("userID", idToken.uid);
     $('#deviceSensors').html(3);
     // lets udpate the # devices
     $('#userRegisteredSensors').html(1);
