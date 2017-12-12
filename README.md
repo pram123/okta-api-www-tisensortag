@@ -17,9 +17,13 @@ Make the following changes to compile and run the application
         - `  var orgUrl       = 'https://prdemo.oktapreview.com'; // TODO - Change this for usage with your org`
         - ` var authServer   = '/oauth2/ausca4x6gjdoZn9u60h7';              // TODO - Change this to your authorization server`
         - ` var redirect = 'http://localhost:8080/dashboard.html';          // TODO - Change this to where the access token should be sent`
-
+    * In admin-dashboard.js
+        - `var metricsURL="https://yourwebserver/rest/admin/user/map"; // your web server URL`
+    * In userDashboard.js
+        - `var APIURL="http://localhost:8080/rest/"; // your web server url`
+        
   #### Java/Springboot application
-    * In application.properties
+    * Copy the application.sample.yml to application.yml and make changes as indicated
     
     * Additional info:
         - Swagger documentation can be located here: http://<url>/swagger-ui.html#/user-controller    
